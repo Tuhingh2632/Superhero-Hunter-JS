@@ -1,0 +1,30 @@
+body{
+    background-color: lightgoldenrodyellow;
+}
+.card{
+    margin: 30px;
+    width: 35vw;
+    border: 2px solid purple;
+    background-color: lightpink;
+}
+.cardBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card-title{
+    padding: 5px;
+    margin: 5px;
+}
+.card-text{
+    padding: 0px 10px 10px 10px;
+}
+.card img{
+    height: 400px;
+    width: 100%;
+}
+.list-group-item{
+    font-size: 1.5rem;
+    font-weight: bold;
+}

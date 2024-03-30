@@ -1,0 +1,42 @@
+body{
+    background-color: lightgoldenrodyellow;
+}
+.showHeroes{
+    margin: 25px 10% 10% 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.card{
+    margin: 5px;
+    height: 375px;
+    width: 300px;
+    border: 2px solid purple;
+    background-color: lightpink;
+}
+.cardBody{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card-title{
+    margin-top: 5px;
+}
+
+.card img{
+    height: 286px;
+    width: 286px;
+}
+.card-body .buttons{
+    display: flex;
+    justify-content: space-around;
+
+}
+.search{
+    margin-top: 20px;
+    width: 50%;
+}
+.form-control{
+    border: 2px solid black;
+}
