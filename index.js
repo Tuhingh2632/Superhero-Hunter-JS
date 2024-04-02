@@ -13,7 +13,7 @@ if (prevArr === null) {
 
 const showHeroesEle = document.querySelector(".showHeroes");
 const inputEle = document.querySelector("#input");
-
+// To show all the super heroes in the home page
 const showHerosOnHomePage = (data) => {
   let query = inputEle.value.toLowerCase();
   console.log(query);
@@ -49,23 +49,7 @@ const showHerosOnHomePage = (data) => {
     showHeroesEle.appendChild(ele);
   });
 };
-let collectedData = [];
-const apiFetch = async () => {
-  try {
-    const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    collectedData = jsonData.data.results;
-    console.log(jsonData.data.results);
-    showHerosOnHomePage(jsonData.data.results);
-    seeDetailsOfTheHero(jsonData.data.results);
-    addToFav(jsonData.data.results);
-  } catch (error) {
-    console.log(error);
-  }
-};
-apiFetch();
-
+// See details button functionality
 const seeDetailsOfTheHero = (data) => {
   const seeDetailsButtonEle = document.querySelectorAll(".seeDetails");
   seeDetailsButtonEle.forEach((bt) => {
@@ -78,7 +62,7 @@ const seeDetailsOfTheHero = (data) => {
     });
   });
 };
-
+// Add to fav button functionality
 const addToFav = (data) => {
   const addToFavButtonEle = document.querySelectorAll(".addToFav");
   addToFavButtonEle.forEach((bt) => {
@@ -95,7 +79,24 @@ const addToFav = (data) => {
     });
   });
 };
-
+let collectedData = [];
+// Api call
+const apiFetch = async () => {
+  try {
+    const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
+    const response = await fetch(url);
+    const jsonData = await response.json();
+    collectedData = jsonData.data.results;
+    console.log(jsonData.data.results);
+    showHerosOnHomePage(jsonData.data.results);
+    seeDetailsOfTheHero(jsonData.data.results);
+    addToFav(jsonData.data.results);
+  } catch (error) {
+    console.log(error);
+  }
+};
+apiFetch();
+// Search bar functionality
 inputEle.addEventListener("input", () => {
   showHeroesEle.innerHTML = "";
   console.log(collectedData);

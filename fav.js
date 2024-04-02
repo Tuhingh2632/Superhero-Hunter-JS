@@ -1,8 +1,9 @@
+// Getting fav superheroes from local storage
 const myFavHeroes = JSON.parse(localStorage.getItem("favChars"));
 console.log(myFavHeroes);
 
 const showHeroesEle = document.querySelector(".showHeroes");
-
+//Shoe heroes in myfav page
 myFavHeroes.forEach((element) => {
   console.log(element);
   let cardEle = document.createElement("div");
@@ -20,7 +21,7 @@ myFavHeroes.forEach((element) => {
         </div>`;
   showHeroesEle.appendChild(cardEle);
 });
-
+//Remove from fav button functionality
 const removeButtonEle = document.querySelectorAll(".removeFav");
 removeButtonEle.forEach((bt) => {
   bt.addEventListener("click", (e) => {
@@ -32,4 +33,3 @@ removeButtonEle.forEach((bt) => {
     location.reload();
   });
 });
-// localStorage.clear();

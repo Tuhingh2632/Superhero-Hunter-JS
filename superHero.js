@@ -1,3 +1,4 @@
+// Getting Details of the superhero from local storage
 const superHeroDetail = JSON.parse(localStorage.getItem("superHeroDetail"));
 console.log(superHeroDetail);
 
