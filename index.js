@@ -1,6 +1,6 @@
-const timeStamp1 = "1711528381966";
+const timeStamp1 = "1712050770090";
 const publicKey = "a66e73ba6436199f86f82f587157913d";
-const hashValue = "5e344da5b3df2e3f67f63230eba7c58b";
+const hashValue = "a07703f4a778f47b5f526367397ce0f6";
 const dateTime = new Date();
 const timeStamp = dateTime.getTime().toString();
 console.log(timeStamp);
@@ -51,14 +51,18 @@ const showHerosOnHomePage = (data) => {
 };
 let collectedData = [];
 const apiFetch = async () => {
-  const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
-  const response = await fetch(url);
-  const jsonData = await response.json();
-  collectedData = jsonData.data.results;
-  console.log(jsonData.data.results);
-  showHerosOnHomePage(jsonData.data.results);
-  seeDetailsOfTheHero(jsonData.data.results);
-  addToFav(jsonData.data.results);
+  try {
+    const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
+    const response = await fetch(url);
+    const jsonData = await response.json();
+    collectedData = jsonData.data.results;
+    console.log(jsonData.data.results);
+    showHerosOnHomePage(jsonData.data.results);
+    seeDetailsOfTheHero(jsonData.data.results);
+    addToFav(jsonData.data.results);
+  } catch (error) {
+    console.log(error);
+  }
 };
 apiFetch();
 
