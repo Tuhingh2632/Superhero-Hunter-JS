@@ -15,6 +15,9 @@ const showHeroesEle = document.querySelector(".showHeroes");
 const inputEle = document.querySelector("#input");
 // To show all the super heroes in the home page
 const showHerosOnHomePage = (data) => {
+  if (showHeroesEle.hasChildNodes()) {
+    showHeroesEle.innerHTML = "";
+  }
   let dataDisplay = data.map((element) => {
     let cardEle = document.createElement("div");
     cardEle.innerHTML = `<div class="card" style="width: 18rem;">
@@ -74,10 +77,20 @@ let collectedData = [];
 // Api call
 const apiFetch = async () => {
   try {
-    const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
+    let url = `https://gateway.marvel.com:443/`;
+    let query = inputEle.value.toLowerCase();
+    console.log(query);
+    if (query === "") {
+      url =
+        url +
+        `v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
+    } else {
+      url =
+        url +
+        `v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}&nameStartsWith=${query}`;
+    }
     const response = await fetch(url);
     const jsonData = await response.json();
-    collectedData = jsonData.data.results;
     console.log(jsonData.data.results);
     showHerosOnHomePage(jsonData.data.results);
     seeDetailsOfTheHero(jsonData.data.results);
@@ -87,20 +100,4 @@ const apiFetch = async () => {
   }
 };
 apiFetch();
-// Search bar functionality
-inputEle.addEventListener("input", async () => {
-  try {
-    let query = inputEle.value.toLowerCase();
-    console.log(query);
-    const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}&nameStartsWith=${query}`;
-    const response = await fetch(url);
-    const jsonData = await response.json();
-    console.log(jsonData.data.results);
-    showHeroesEle.innerHTML = "";
-    showHerosOnHomePage(jsonData.data.results);
-    seeDetailsOfTheHero(jsonData.data.results);
-    addToFav(jsonData.data.results);
-  } catch (error) {
-    console.log(error);
-  }
-});
+inputEle.addEventListener("input", apiFetch);
