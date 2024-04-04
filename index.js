@@ -15,15 +15,13 @@ const showHeroesEle = document.querySelector(".showHeroes");
 const inputEle = document.querySelector("#input");
 // To show all the super heroes in the home page
 const showHerosOnHomePage = (data) => {
-  let query = inputEle.value.toLowerCase();
-  console.log(query);
   let dataDisplay = data
-    .filter((eventData) => {
-      let newStr = eventData.name
-        .replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, "")
-        .toLowerCase();
-      return newStr.includes(query);
-    })
+    // .filter((eventData) => {
+    //   let newStr = eventData.name
+    //     .replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, "")
+    //     .toLowerCase();
+    //   return newStr.includes(query);
+    // })
     .map((element) => {
       let cardEle = document.createElement("div");
       cardEle.innerHTML = `<div class="card" style="width: 18rem;">
@@ -31,7 +29,7 @@ const showHerosOnHomePage = (data) => {
           element.thumbnail["path"] + "." + element.thumbnail["extension"]
         } class="card-img-top" alt="...">
         <div class="cardBody">
-          <h5 class="card-title">${element.name}</h5>
+          <h5 class="card-title mx-auto">${element.name}</h5>
           <div class="buttons">
             <a href="#"><button class="btn btn-primary seeDetails" id=${
               element.id
@@ -81,7 +79,7 @@ const addToFav = (data) => {
 };
 let collectedData = [];
 // Api call
-const apiFetch = async () => {
+const apiFetch = async (name) => {
   try {
     const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
     const response = await fetch(url);
@@ -97,10 +95,19 @@ const apiFetch = async () => {
 };
 apiFetch();
 // Search bar functionality
-inputEle.addEventListener("input", () => {
-  showHeroesEle.innerHTML = "";
-  console.log(collectedData);
-  showHerosOnHomePage(collectedData);
-  seeDetailsOfTheHero(collectedData);
-  addToFav(collectedData);
+inputEle.addEventListener("input", async () => {
+  try {
+    let query = inputEle.value.toLowerCase();
+    console.log(query);
+    const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}&nameStartsWith=${query}`;
+    const response = await fetch(url);
+    const jsonData = await response.json();
+    console.log(jsonData.data.results);
+    showHeroesEle.innerHTML = "";
+    showHerosOnHomePage(jsonData.data.results);
+    seeDetailsOfTheHero(jsonData.data.results);
+    addToFav(jsonData.data.results);
+  } catch (error) {
+    console.log(error);
+  }
 });

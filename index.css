@@ -9,19 +9,21 @@ body{
 }
 .card{
     margin: 5px;
-    height: 375px;
+    height: 390px;
     width: 300px;
     border: 2px solid purple;
     background-color: lightpink;
 }
 .cardBody{
+    margin: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 .card-title{
-    margin-top: 5px;
+    font-size: 1rem;
+    margin: 5px;
 }
 
 .card img{
