@@ -15,16 +15,9 @@ const showHeroesEle = document.querySelector(".showHeroes");
 const inputEle = document.querySelector("#input");
 // To show all the super heroes in the home page
 const showHerosOnHomePage = (data) => {
-  let dataDisplay = data
-    // .filter((eventData) => {
-    //   let newStr = eventData.name
-    //     .replace(/[\s~`!@#$%^&*(){}\[\];:"'<,.>?\/\\|_+=-]/g, "")
-    //     .toLowerCase();
-    //   return newStr.includes(query);
-    // })
-    .map((element) => {
-      let cardEle = document.createElement("div");
-      cardEle.innerHTML = `<div class="card" style="width: 18rem;">
+  let dataDisplay = data.map((element) => {
+    let cardEle = document.createElement("div");
+    cardEle.innerHTML = `<div class="card" style="width: 18rem;">
         <img src=${
           element.thumbnail["path"] + "." + element.thumbnail["extension"]
         } class="card-img-top" alt="...">
@@ -40,8 +33,8 @@ const showHerosOnHomePage = (data) => {
           </div>
         </div>`;
 
-      return cardEle;
-    });
+    return cardEle;
+  });
   console.log(dataDisplay);
   dataDisplay.forEach((ele) => {
     showHeroesEle.appendChild(ele);
@@ -79,7 +72,7 @@ const addToFav = (data) => {
 };
 let collectedData = [];
 // Api call
-const apiFetch = async (name) => {
+const apiFetch = async () => {
   try {
     const url = `https://gateway.marvel.com:443/v1/public/characters?ts=${timeStamp1}&apikey=${publicKey}&hash=${hashValue}`;
     const response = await fetch(url);
